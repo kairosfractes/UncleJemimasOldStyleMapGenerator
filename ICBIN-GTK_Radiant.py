@@ -1,3 +1,13 @@
+class vec3:
+	def __init__(self, x, y, z):
+		self.x = x
+		self.y = y
+		self.z = z
+	def __str__(self):
+		return "("+str(self.x)+", "+str(self.y)+", "+str(self.z)+")"
+	def __len__(self):
+		return 3
+
 #some basic shapes and architectural stuff below this
 
 #def hollow_cube(length):
