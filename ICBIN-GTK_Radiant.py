@@ -1,12 +1,17 @@
 class vec3:
 	def __init__(self, x, y, z):
-		self.x = x
-		self.y = y
-		self.z = z
+		self.x = float(x)
+		self.y = float(y)
+		self.z = float(z)
 	def __str__(self):
 		return "("+str(self.x)+", "+str(self.y)+", "+str(self.z)+")"
 	def __len__(self):
 		return 3
+	def ints(self):
+		self.x = round(self.x)
+		self.y = round(self.y)
+		self.z = round(self.z)
+		return self
 
 #some basic shapes and architectural stuff below this
 
