@@ -27,12 +27,11 @@ class vec3:
 
 #brush converter here
 
-def brush_to_vector(vec3, vec3):
-        start = vec3(x,y,z)
-        end = vec3(x2,y2,z2)
-        xlength = end.x - start.x
-        ylength = end.y - start.y
-        zlength = end.z - start.z
+def brush_to_vector(veca, vecb):
+		origin = veca
+        xlength = vecb.x - veca.x
+        ylength = vecb.y - veca.y
+        zlength = vecb.z - veca.z
                 
 #initialize variables
 textures = ["gothic_block/blocks18c_3"]
