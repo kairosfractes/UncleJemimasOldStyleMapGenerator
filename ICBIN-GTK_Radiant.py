@@ -4,22 +4,33 @@ class brush:
 		self.epoint = vecb
 		self.texlist = []
 		for i in range(6):
-			self.texlist.append("gothic_block/blocks18c_3")
+			self.texlist.append(texture("gothic_block/blocks18c_3", 0, 0, 0, 0.5, 0.5, 0))
 	def __str__(self):
-		l1 = "( "+str(self.spoint.x)+" 0 0 ) ( "+str(self.spoint.x)+" 1 0 ) ( "+str(self.spoint.x)+" 0 1 ) "+self.texlist[0]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		l2 = "( "+str(self.epoint.x)+" 0 0 ) ( "+str(self.epoint.x)+" 0 1 ) ( "+str(self.epoint.x)+" 1 0 ) "+self.texlist[1]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		l3 = "( 0 "+str(self.spoint.y)+" 0 ) ( 0 "+str(self.spoint.y)+" 1 ) ( 1 "+str(self.spoint.y)+" 0 ) "+self.texlist[2]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		l4 = "( 0 "+str(self.epoint.y)+" 0 ) ( 1 "+str(self.epoint.y)+" 0 ) ( 0 "+str(self.epoint.y)+" 1 ) "+self.texlist[3]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		l5 = "( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) "+self.texlist[4]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		l6 = "( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) "+self.texlist[5]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
-		return "{\n"+l1+l2+l3+l4+l5+l6+"\n}"
+		l1 = "( "+str(self.spoint.x)+" 0 0 ) ( "+str(self.spoint.x)+" 1 0 ) ( "+str(self.spoint.x)+" 0 1 ) "+str(self.texlist[0])+"\n"
+		l2 = "( "+str(self.epoint.x)+" 0 0 ) ( "+str(self.epoint.x)+" 0 1 ) ( "+str(self.epoint.x)+" 1 0 ) "+str(self.texlist[1])+"\n"
+		l3 = "( 0 "+str(self.spoint.y)+" 0 ) ( 0 "+str(self.spoint.y)+" 1 ) ( 1 "+str(self.spoint.y)+" 0 ) "+str(self.texlist[2])+"\n"
+		l4 = "( 0 "+str(self.epoint.y)+" 0 ) ( 1 "+str(self.epoint.y)+" 0 ) ( 0 "+str(self.epoint.y)+" 1 ) "+str(self.texlist[3])+"\n"
+		l5 = "( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) "+str(self.texlist[4])+"\n"
+		l6 = "( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) "+str(self.texlist[5])+"\n"
+		return "{\n"+l1+l2+l3+l4+l5+l6+"}\n"
 	def setTexture(self, index, texture):
 		self.texlist[index] = texture
 	def setAllTextures(self, texture):
-		self.texlist = []
 		for i in range(6):
-			self.texlist.append(texture)
+			self.texlist[i] = texture
 
+class texture:
+	def __init__(self, txstring, xoff, yoff, txrot, xscale, yscale, detailflag):
+		self.txstring = txstring
+		self.xoff = xoff
+		self.yoff = yoff
+		self.txrot = txrot
+		self.xscale = xscale
+		self.yscale = yscale
+		self.detailflag = detailflag
+	def __str__(self):
+		return str(self.txstring)+" "+str(self.xoff)+" "+str(self.yoff)+" "+str(self.txrot)+" "+str(self.xscale)+" "+str(self.yscale)+" "+str(self.detailflag)+" 0 0"
+		
 class vec3:
 	def __init__(self, x, y, z):
 		self.x = int(x)
@@ -46,14 +57,26 @@ class vec3:
 textures = ["gothic_block/blocks18c_3"]
 entitynum = 0
 brushnum = 0
+brushes = []
 
 #initialize map file, write first lines
 newmap = open("generation.map", "w")
-newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n'+'//brush '+str(brushnum)+'\n')
+newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n')
 
-brushd = brush(vec3(0,0,0), vec3(512,512,512))
-newmap.write(str(brushd))
+tbrush1 = brush(vec3(0,0,0), vec3(512,512,512))
+brushes.append(tbrush1)
+tbrush2 = brush(vec3(0,64,128), vec3(512,1024,256))
+brushes.append(tbrush2)
+tbrush3 = brush(vec3(256,256,256), vec3(384,512,2048))
+brushes.append(tbrush3)
 
+for b in range(len(brushes)):
+	newmap.write("//brush "+str(brushnum)+"\n")
+	brushnum += 1
+	newmap.write(str(brushes[b]))
+
+newmap.close()
+	
 #explanation of how radiant actually maps this junk
 """
 Rectangular prism example.
