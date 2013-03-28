@@ -27,7 +27,7 @@ class vec3:
 
 #brush converter here
 
-def brush_to_vector(veca, vecb):
+def vectors2brush(veca, vecb):
 	origin = veca
 	xlength = vecb.x - veca.x
 	ylength = vecb.y - veca.y
