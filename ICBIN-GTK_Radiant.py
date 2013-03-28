@@ -1,17 +1,28 @@
+class brush:
+	def __init__(self, veca, vecb):
+		self.spoint = veca
+		self.epoint = vecb
+		self.texlist = []
+		for i in range(6):
+			self.texlist.append("gothic_block/blocks18c_3")
+	def __str__(self):
+		l1 = "( "+str(self.spoint.x)+" 0 0 ) ( "+str(self.spoint.x)+" 1 0 ) ( "+str(self.spoint.x)+" 0 1 ) "+self.texlist[0]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		l2 = "( "+str(self.epoint.x)+" 0 0 ) ( "+str(self.epoint.x)+" 0 1 ) ( "+str(self.epoint.x)+" 1 0 ) "+self.texlist[1]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		l3 = "( 0 "+str(self.spoint.y)+" 0 ) ( 0 "+str(self.spoint.y)+" 1 ) ( 1 "+str(self.spoint.y)+" 0 ) "+self.texlist[2]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		l4 = "( 0 "+str(self.epoint.y)+" 0 ) ( 1 "+str(self.epoint.y)+" 0 ) ( 0 "+str(self.epoint.y)+" 1 ) "+self.texlist[3]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		l5 = "( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) "+self.texlist[4]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		l6 = "( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) "+self.texlist[5]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
+		return "{\n"+l1+l2+l3+l4+l5+l6+"\n}"
+
 class vec3:
 	def __init__(self, x, y, z):
-		self.x = float(x)
-		self.y = float(y)
-		self.z = float(z)
+		self.x = int(x)
+		self.y = int(y)
+		self.z = int(z)
 	def __str__(self):
 		return "("+str(self.x)+", "+str(self.y)+", "+str(self.z)+")"
 	def __len__(self):
 		return 3
-	def ints(self):
-		self.x = round(self.x)
-		self.y = round(self.y)
-		self.z = round(self.z)
-		return self
 
 """
 >>> var = vec3(5,8,2)
@@ -25,12 +36,6 @@ class vec3:
 (5,8,2)
 """
 
-#brush converter here
-
-def vectors2brush(veca, vecb):
-	brush = str('{\n('+str(veca.x)+' 0 0) ('+str(veca.x)+' 1 0) ('+str(veca.x)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n('+str(vecb.x)+' 0 0) ('+str(vecb.x)+' 1 0) ('+str(vecb.x)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n('+str(veca.y)+' 0 0) ('+str(veca.y)+' 1 0) ('+str(veca.y)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n('+str(vecb.y)+' 0 0) ('+str(vecb.y)+' 1 0) ('+str(vecb.y)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n('+str(veca.z)+' 0 0) ('+str(veca.z)+' 1 0) ('+str(veca.z)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n('+str(vecb.z)+' 0 0) ('+str(vecb.z)+' 1 0) ('+str(vecb.z)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n}')
-	return brush
-
 #initialize variables
 textures = ["gothic_block/blocks18c_3"]
 entitynum = 0
@@ -38,13 +43,10 @@ brushnum = 0
 
 #initialize map file, write first lines
 newmap = open("generation.map", "w")
-newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n')
+newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n'+'//brush '+str(brushnum)+'\n')
 
-#platform test
-def platform(vec1, vec2):
-        return newmap.write(vectors2brush(vec1, vec2))
-
-platform(vec3(0,0,0), vec3(512,512,32))
+brushd = brush(vec3(0,0,0), vec3(512,512,512))
+newmap.write(str(brushd))
 
 #explanation of how radiant actually maps this junk
 """
