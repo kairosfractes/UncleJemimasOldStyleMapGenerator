@@ -8,11 +8,27 @@ class vec3:
 	def __len__(self):
 		return 3
 
-#some basic shapes and architectural stuff below this
+"""
+>>> var = vec3(5,8,2)
+>>> var.x
+5
+>>> var.y
+8
+>>> var.z
+2
+>>> str(var)
+(5,8,2)
+"""
 
-#def hollow_cube(length):
-#    newmap.write(
+#brush converter here
 
+def brush_to_vector(vec3, vec3):
+        start = vec3(x,y,z)
+        end = vec3(x2,y2,z2)
+        xlength = end.x - start.x
+        ylength = end.y - start.y
+        zlength = end.z - start.z
+                
 #initialize variables
 textures = ["gothic_block/blocks18c_3"]
 entitynum = 0
