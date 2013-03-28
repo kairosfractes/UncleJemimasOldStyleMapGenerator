@@ -32,12 +32,30 @@ newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n')
 
 
 
-#testing material
+#explanation of how radiant actually maps this junk
 """
+Rectangular prism example.
+
 newmap.write('\n( 128 0 0 ) ( 128 1 0 ) ( 128 0 1 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0')
 newmap.write('\n( 256 0 0 ) ( 256 0 1 ) ( 256 1 0 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0')
+
+This first pair of points describes the height of the brush to radiant. The first set of points
+is the lower bound of the height description, and the second set of points is the upper bound
+of the height description. These vertices are -128u on both x & y axis from the bottom left corner
+side of the prism, if looking top down at a standard 90 degree view.
+
 newmap.write('\n( 0 128 0 ) ( 0 128 1 ) ( 1 128 0 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0')
 newmap.write('\n( 0 384 0 ) ( 1 384 0 ) ( 0 384 1 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0')
+
+The second pair of points describes the length of the brush to radiant. The first set of points
+is the lower bound of the length description, and the second set of points is the upper bound of
+the length of the prism. These vertices are -128u on the x axis from the "-x" side of the prism,
+and 64u below the "-z" face of the prism.
+
 newmap.write('\n( 0 0 64 ) ( 1 0 64 ) ( 0 1 64 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0')
 newmap.write('\n( 0 0 128 ) ( 0 1 128 ) ( 1 0 128 ) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n}')
+
+The third pair of points describes the width of the brush to radiant. The first set of points is
+the lower bound of the width description, and the second set of points is the upper bound of the width.
+These vertices are -128u on the y axis from the "-y" of the prism, and 64u below the "-z" face of the prism.
 """
