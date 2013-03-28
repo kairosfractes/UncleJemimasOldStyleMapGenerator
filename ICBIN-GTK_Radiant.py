@@ -28,12 +28,8 @@ class vec3:
 #brush converter here
 
 def vectors2brush(veca, vecb):
-	origin = veca
-	xlength = vecb.x - veca.x
-	ylength = vecb.y - veca.y
-	zlength = vecb.z - veca.z
-	brush = str(
-        return 
+	brush = '('+veca.x+' 0 0) ('+veca.x+' 1 0) ('+veca.x+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.x+' 0 0) ('+vecb.x+' 1 0) ('+vecb.x+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+veca.y+' 0 0) ('+veca.y+' 1 0) ('+veca.y+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.y+' 0 0) ('+vecb.y+' 1 0) ('+vecb.y+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+veca.z+' 0 0) ('+veca.z+' 1 0) ('+veca.z+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.z+' 0 0) ('+vecb.z+' 1 0) ('+vecb.z+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0'
+        return str(brush)
         
 #initialize variables
 textures = ["gothic_block/blocks18c_3"]
