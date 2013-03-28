@@ -28,9 +28,9 @@ class vec3:
 #brush converter here
 
 def vectors2brush(veca, vecb):
-	brush = '('+veca.x+' 0 0) ('+veca.x+' 1 0) ('+veca.x+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.x+' 0 0) ('+vecb.x+' 1 0) ('+vecb.x+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+veca.y+' 0 0) ('+veca.y+' 1 0) ('+veca.y+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.y+' 0 0) ('+vecb.y+' 1 0) ('+vecb.y+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+veca.z+' 0 0) ('+veca.z+' 1 0) ('+veca.z+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+vecb.z+' 0 0) ('+vecb.z+' 1 0) ('+vecb.z+' 0 1) '+textures[0]+' 0 0 0 0.5 0.5 0 0 0'
-        return str(brush)
-        
+	brush = '// brush '+str(brushnum)+'\n{\n('+str(veca.x)+' 0 0) ('+str(veca.x)+' 1 0) ('+str(veca.x)+' 0 1) '+str(textures)[0]+' 0 0 0 0.5 0.5 0 0 0\n ('+str(vecb.x)+' 0 0) ('+str(vecb.x)+' 1 0) ('+str(vecb.x)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n ('+str(veca.y)+' 0 0) ('+str(veca.y)+' 1 0) ('+str(veca.y)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n ('+str(vecb.y)+' 0 0) ('+str(vecb.y)+' 1 0) ('+str(vecb.y)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n ('+str(veca.z)+' 0 0) ('+str(veca.z)+' 1 0) ('+str(veca.z)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n ('+str(vecb.z)+' 0 0) ('+str(vecb.z)+' 1 0) ('+str(vecb.z)+' 0 1) '+str(textures[0])+' 0 0 0 0.5 0.5 0 0 0\n}'
+	return str(brush)
+
 #initialize variables
 textures = ["gothic_block/blocks18c_3"]
 entitynum = 0
@@ -40,7 +40,12 @@ brushnum = 0
 newmap = open("generation.map", "w")
 newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n')
 
+#platform test
+def platform(vec1, vec2):
+        vectors2brush(vec1, vec2)
+        return newmap.write(brush)
 
+platform((0,0,0), (512,512,32))
 
 #explanation of how radiant actually maps this junk
 """
