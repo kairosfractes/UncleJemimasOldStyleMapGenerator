@@ -13,6 +13,12 @@ class brush:
 		l5 = "( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) "+self.texlist[4]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
 		l6 = "( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) "+self.texlist[5]+" 0 0 0 0.5 0.5 0 0 0"+"\n"
 		return "{\n"+l1+l2+l3+l4+l5+l6+"\n}"
+	def setTexture(self, index, texture):
+		self.texlist[index] = texture
+	def setAllTextures(self, texture):
+		self.texlist = []
+		for i in range(6):
+			self.texlist.append(texture)
 
 class vec3:
 	def __init__(self, x, y, z):
