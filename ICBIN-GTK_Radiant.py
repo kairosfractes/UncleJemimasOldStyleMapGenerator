@@ -5,18 +5,25 @@ class brush:
 		self.texlist = []
 		for i in range(6):
 			self.texlist.append(texture("gothic_block/blocks18c_3", 0, 0, 0, 0.5, 0.5, 0))
+		self.strlist = []
+		self.strlist.append("( "+str(self.spoint.x)+" 0 0 ) ( "+str(self.spoint.x)+" 1 0 ) ( "+str(self.spoint.x)+" 0 1 ) ")
+		self.strlist.append("( "+str(self.epoint.x)+" 0 0 ) ( "+str(self.epoint.x)+" 0 1 ) ( "+str(self.epoint.x)+" 1 0 ) ")
+		self.strlist.append("( 0 "+str(self.spoint.y)+" 0 ) ( 0 "+str(self.spoint.y)+" 1 ) ( 1 "+str(self.spoint.y)+" 0 ) ")
+		self.strlist.append("( 0 "+str(self.epoint.y)+" 0 ) ( 1 "+str(self.epoint.y)+" 0 ) ( 0 "+str(self.epoint.y)+" 1 ) ")
+		self.strlist.append("( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) ")
+		self.strlist.append("( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) ")
 	def __str__(self):
-		l1 = "( "+str(self.spoint.x)+" 0 0 ) ( "+str(self.spoint.x)+" 1 0 ) ( "+str(self.spoint.x)+" 0 1 ) "+str(self.texlist[0])+"\n"
-		l2 = "( "+str(self.epoint.x)+" 0 0 ) ( "+str(self.epoint.x)+" 0 1 ) ( "+str(self.epoint.x)+" 1 0 ) "+str(self.texlist[1])+"\n"
-		l3 = "( 0 "+str(self.spoint.y)+" 0 ) ( 0 "+str(self.spoint.y)+" 1 ) ( 1 "+str(self.spoint.y)+" 0 ) "+str(self.texlist[2])+"\n"
-		l4 = "( 0 "+str(self.epoint.y)+" 0 ) ( 1 "+str(self.epoint.y)+" 0 ) ( 0 "+str(self.epoint.y)+" 1 ) "+str(self.texlist[3])+"\n"
-		l5 = "( 0 0 "+str(self.spoint.z)+" ) ( 1 0 "+str(self.spoint.z)+" ) ( 0 1 "+str(self.spoint.z)+" ) "+str(self.texlist[4])+"\n"
-		l6 = "( 0 0 "+str(self.epoint.z)+" ) ( 0 1 "+str(self.epoint.z)+" ) ( 1 0 "+str(self.epoint.z)+" ) "+str(self.texlist[5])+"\n"
-		return "{\n"+l1+l2+l3+l4+l5+l6+"}\n"
+		returnstring = ""
+		for p in range(len(self.strlist)):
+			returnstring += self.strlist[p]+str(self.texlist[p])+"\n"
+		return returnstring
+	def addCuttingPlane(self, veccut1, veccut2, veccut3):
+		self.strlist.append(str(veccut1)+" "+str(veccut2)+" "+str(veccut3)+" ")
+		self.texlist.append(texture("gothic_block/blocks18c_3", 0, 0, 0, 0.5, 0.5, 0))
 	def setTexture(self, index, texture):
 		self.texlist[index] = texture
 	def setAllTextures(self, texture):
-		for i in range(6):
+		for i in range(len(self.texlist)):
 			self.texlist[i] = texture
 
 class texture:
@@ -37,7 +44,7 @@ class vec3:
 		self.y = int(y)
 		self.z = int(z)
 	def __str__(self):
-		return "("+str(self.x)+", "+str(self.y)+", "+str(self.z)+")"
+		return "( "+str(self.x)+" "+str(self.y)+" "+str(self.z)+" )"
 	def __len__(self):
 		return 3
 
@@ -64,16 +71,13 @@ newmap = open("generation.map", "w")
 newmap.write('// entity '+str(entitynum)+' \n{ \n"classname" "worldspawn" \n')
 
 tbrush1 = brush(vec3(0,0,0), vec3(512,512,512))
+tbrush1.addCuttingPlane(vec3(0,384,512), vec3(0,512,384), vec3(512,384,512))
 brushes.append(tbrush1)
-tbrush2 = brush(vec3(0,64,128), vec3(512,1024,256))
-brushes.append(tbrush2)
-tbrush3 = brush(vec3(256,256,256), vec3(384,512,2048))
-brushes.append(tbrush3)
 
 for b in range(len(brushes)):
 	newmap.write("//brush "+str(brushnum)+"\n")
 	brushnum += 1
-	newmap.write(str(brushes[b]))
+	newmap.write("{\n"+str(brushes[b])+"}\n")
 
 newmap.close()
 	
